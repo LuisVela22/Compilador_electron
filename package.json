@@ -1,0 +1,15 @@
+{
+  "name": "proyectoelectron",
+  "version": "1.0.0",
+  "description": "Compilador",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Luis Velasco",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^30.1.0"
+  }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editor de Código</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.min.js"></script>
+    <script src="lines.js"></script>
+    <script src="aLEX.js"></script>
+    <script src="auxx.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h2>COMPILADOR</h2>
+    </div>
+
+    <div class="buttons">
+        <button onclick="compilar()">Compilar</button>
+        <button >Ejecutar</button>
+        <button onclick="showTokens()">Mostrar Tokens</button>
+    </div>
+
+    <div class="my-container">
+        <div class="code-editor">
+            <nav class="line-numbers" id="line-numbers"></nav>
+            <textarea name="codigo" id="code-input" rows="10" cols="50" oninput="updateLineNumbers()" onscroll="syncScroll()"></textarea>
+        </div>
+        <div id="output" style="border: 1px; margin: 20px 0; font-family: monospace;">
+            <h2 style="text-align: center;">SALIDA</h2>
+        </div>
+    </div>
+    
+    <!-- Importa los scripts en el orden correcto -->
+    
+    <script src="parser.js"></script>
+    <script src="codegen.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+.code-editor {
+    display: flex;
+    margin: 20px 0;
+    position: relative;
+    font-family: monospace;
+    width: 50%;
+  }
+  
+/*.line-numbers {
+    padding: 8px;
+    /*width: 7px;px;
+    background: #f7f7f7;
+    border-right: 1px solid #ccc;
+    margin: 34px;
+    text-align: right;
+    user-select: none;
+    font-size: 14px;
+    color: #888;
+    white-space: pre;
+}
+  
+textarea {
+    flex-grow: 1;
+    padding: 10px;
+    font-style: oblique;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    margin: 34px ;
+    border-left: none;
+    border-radius: 10px 5px;
+    resize: vertical;
+    overflow: auto;
+}*/
+
+.line-numbers {
+    padding: 10px;
+    background: #f7f7f7;
+    border-right: 1px solid #ccc;
+    text-align: right;
+    user-select: none;
+    font-size: 14px;
+    color: #888;
+    white-space: pre;
+}
+
+textarea {
+    flex-grow: 1;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    resize: vertical;
+    overflow: auto;
+}
+  
+textarea:focus {
+    outline: none;
+    border-color: #dbcee4;
+}
+  
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color:rgb(215, 217, 221);
+    margin: 0;
+    padding: 0;
+}   
+
+.header {
+    background-color: #006699;
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    text-align: center;
+}
+
+.buttons {
+    margin-top: 20px;
+    /*display:flex    ;*/   
+    justify-content: center;
+    gap: 10px;
+}
+
+.buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.buttons button:hover {
+    background-color: #45a049;
+}
+
+.my-container {
+    display:flex;
+    
+}
+
+
+.my-container  div {
+    width: 50%;
+    
+}
+
+
+/*.my-container {
+    width: 100px;
+    overflow: 100%;
+}
+
+.my-container  div {
+    width: 50%;
+    float: left;
+}/*
+
+
+
+

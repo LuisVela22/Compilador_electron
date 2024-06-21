@@ -6,13 +6,12 @@ const TokenType = {
     NUMBER: 'NUMBER',
     SYMBOL: 'SYMBOL',
     INVALID: 'INVALID',
-    ADDSUB: 'ADSUB',
+    ADDSUB: 'ADDSUB',
     EQUAL: 'EQUAL',
     LEFT: 'LEFT',
     RIGHT: 'RIGHT',
     LEFT1: 'LEFT1',
     RIGHT2: 'RIGHT2'
-
 };
 
 // Conjunto de palabras clave
@@ -25,9 +24,29 @@ function lexer(code) {
     const len = code.length;
     let line = 1;
     let column = 1;
+    let inProgram = false; // Para rastrear si estamos dentro de INICIO y FIN
 
     while (currentPos < len) {
         let char = code[currentPos];
+
+        if (!inProgram) {
+            // Buscar la palabra clave 'INICIO' antes de comenzar a tokenizar
+            if (char === 'I' && code.slice(currentPos, currentPos + 6) === 'INICIO') {
+                inProgram = true;
+                tokens.push({ type: TokenType.KEYWORD, value: 'INICIO', line, column });
+                currentPos += 6;
+                column += 6;
+                continue;
+            } else {
+                currentPos++;
+                column++;
+                if (char === '\n') {
+                    line++;
+                    column = 1;
+                }
+                continue;
+            }
+        }
 
         if (char === ' ' || char === '\n') {
             if (char === '\n') {
@@ -75,6 +94,10 @@ function lexer(code) {
             }
             if (keywords.has(token)) {
                 tokens.push({ type: TokenType.KEYWORD, value: token, line, column: tokenStartColumn });
+                if (token === 'FIN') {
+                    inProgram = false; // Detener el análisis después de FIN
+                    break;
+                }
             } else {
                 tokens.push({ type: TokenType.IDENTIFIER, value: token, line, column: tokenStartColumn });
             }
@@ -218,7 +241,9 @@ class Parser {
         if (this.getCurrentToken().type === tokenType) {
             this.currentTokenIndex++;
         } else {
-            throw new Error(`Error: Expected token type ${tokenType} but got ${this.getCurrentToken().type}`);
+            this.errors.push(`Error: en linea ${this.getCurrentToken().line}`);
+            // Avanzar el índice del token aunque haya un error para seguir parseando
+            this.currentTokenIndex++;
         }
     }
 
@@ -231,7 +256,7 @@ class Parser {
             return { success: true, ast: programNode };
         } catch (error) {
             console.error(error.message);
-            return { success: false, error: error.message };
+            return { success: false, error: error.message, errors: this.errors };
         }
     }
 
@@ -256,7 +281,7 @@ class Parser {
             } else if (this.getCurrentToken().type === TokenType.KEYWORD && this.getCurrentToken().value === 'vacio') {
                 body.push(this.parseFuncion());
             } else {
-                this.errors.push(`Error inesperado: ${this.getCurrentToken().value} en línea ${this.getCurrentToken().line}, columna ${this.getCurrentToken().column}`);
+                this.errors.push(`Error inesperado: en línea ${this.getCurrentToken().line}`);
                 this.currentTokenIndex++; // Avanzar al siguiente token
             }
         }
@@ -338,37 +363,9 @@ class Parser {
             this.eat(TokenType.RIGHT); // )
             return node;
         } else {
-            throw new Error(`Error: Unexpected token ${token.value} at line ${token.line}, column ${token.column}`);
+            this.errors.push(`Error: en linea ${token.line}`);
+            this.currentTokenIndex++; // Avanzar al siguiente token
+            return null; // Retornar nulo si hay un error
         }
     }
 }
-
-
-// Ejemplo de uso
-const code = `
-INICIO {
-    int a = 5
-    int b = 10
-    for (2) {
-        a = a + b * 2
-        for(3){
-            a = 3-d
-            for(34){
-}
-        }
-    }
-
-    vacio dfd (){
-        for (4) {
-            int a = 2
-            a  = v + 4 * 4 - (334*4
-        }
-    }
-}FIN
-`;
-
-const tokens = lexer(code);
-const parser = new Parser(tokens);
-const result = parser.parse();
-console.log(result.success); // Devuelve true si la compilación fue exitosa, false si hubo errores
-console.log(JSON.stringify(result.ast, null, 2)); // Muestra el AST generado

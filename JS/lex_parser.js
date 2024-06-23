@@ -17,7 +17,7 @@ const TokenType = {
 // Conjunto de palabras clave
 const keywords = new Set(['int', 'INICIO', 'FIN', 'for', 'vacio']);
 
-// Función del lexer
+// lexico
 function lexer(code) {
     let tokens = [];
     let currentPos = 0;
@@ -95,7 +95,7 @@ function lexer(code) {
             if (keywords.has(token)) {
                 tokens.push({ type: TokenType.KEYWORD, value: token, line, column: tokenStartColumn });
                 if (token === 'FIN') {
-                    inProgram = false; // Detener el análisis después de FIN
+                    inProgram = false; // Detener el analisis después de FIN
                     break;
                 }
             } else {
@@ -170,7 +170,7 @@ function lexer(code) {
     return tokens;
 }
 
-// Definición de las clases de nodos del AST
+// Definicion de las clases de nodos del AST
 class Num {
     constructor(value) {
         this.value = value;
@@ -225,7 +225,7 @@ class Program {
     }
 }
 
-// Implementación del Parser
+//analisis sintactico descendente recursivo
 class Parser {
     constructor(tokens) {
         this.tokens = tokens;
@@ -271,7 +271,7 @@ class Parser {
 
     parseCuerpo() {
         const body = [];
-        while (this.getCurrentToken().type !== TokenType.RIGHT2) { // Cambiar TokenType.SYMBOL a TokenType.RIGHT2
+        while (this.getCurrentToken().type !== TokenType.RIGHT2) { 
             if (this.getCurrentToken().type === TokenType.KEYWORD && this.getCurrentToken().value === 'int') {
                 body.push(this.parseDeclaracion());
             } else if (this.getCurrentToken().type === TokenType.IDENTIFIER) {
@@ -292,7 +292,7 @@ class Parser {
         this.eat(TokenType.KEYWORD); // int
         const identifier = this.getCurrentToken().value;
         this.eat(TokenType.IDENTIFIER);
-        this.eat(TokenType.EQUAL); // Cambiar TokenType.SYMBOL a TokenType.EQUAL
+        this.eat(TokenType.EQUAL); 
         const expression = this.parseExpresion();
         return new Declaration(identifier, expression);
     }
@@ -300,7 +300,7 @@ class Parser {
     parseAsignacion() {
         const identifier = this.getCurrentToken().value;
         this.eat(TokenType.IDENTIFIER);
-        this.eat(TokenType.EQUAL); // Cambiar TokenType.SYMBOL a TokenType.EQUAL
+        this.eat(TokenType.EQUAL); 
         const expression = this.parseExpresion();
         return new Assignment(identifier, expression);
     }

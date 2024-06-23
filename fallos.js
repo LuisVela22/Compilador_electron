@@ -335,7 +335,6 @@ class Parser {
     }
 }     
 
-// Código de ejemplo
 const code = `
 INICIO {
     int x = 5
@@ -350,9 +349,6 @@ INICIO {
 FIN
 `;
 
-// Convertir código en tokens
 const tokens = lexer(code);
-
-// Crear una instancia del parser y analizar los tokens
 const parser = new Parser(tokens);
 parser.parse();

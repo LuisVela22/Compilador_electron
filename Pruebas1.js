@@ -202,12 +202,12 @@ class Program {
     }
 }
 
-// Implementación del Parser
+//Analsiis Sintactico desdcendente recursivo 
 class Parser {
     constructor(tokens) {
         this.tokens = tokens;
         this.currentTokenIndex = 0;
-        this.errors = []; // Agregar arreglo para almacenar errores
+        this.errors = []; // Este arreglo almacenará los errores
     }
 
     getCurrentToken() {
@@ -218,7 +218,7 @@ class Parser {
         if (this.getCurrentToken().type === tokenType) {
             this.currentTokenIndex++;
         } else {
-            throw new Error(`Error: Expected token type ${tokenType} but got ${this.getCurrentToken().type}`);
+            throw new Error(`Se esperaba ${tokenType} y se tiene ${this.getCurrentToken().type}`);
         }
     }
 
@@ -246,7 +246,7 @@ class Parser {
 
     parseCuerpo() {
         const body = [];
-        while (this.getCurrentToken().type !== TokenType.RIGHT2) { // Cambiar TokenType.SYMBOL a TokenType.RIGHT2
+        while (this.getCurrentToken().type !== TokenType.RIGHT2) { // 
             if (this.getCurrentToken().type === TokenType.KEYWORD && this.getCurrentToken().value === 'int') {
                 body.push(this.parseDeclaracion());
             } else if (this.getCurrentToken().type === TokenType.IDENTIFIER) {
@@ -267,7 +267,7 @@ class Parser {
         this.eat(TokenType.KEYWORD); // int
         const identifier = this.getCurrentToken().value;
         this.eat(TokenType.IDENTIFIER);
-        this.eat(TokenType.EQUAL); // Cambiar TokenType.SYMBOL a TokenType.EQUAL
+        this.eat(TokenType.EQUAL); 
         const expression = this.parseExpresion();
         return new Declaration(identifier, expression);
     }
@@ -275,7 +275,7 @@ class Parser {
     parseAsignacion() {
         const identifier = this.getCurrentToken().value;
         this.eat(TokenType.IDENTIFIER);
-        this.eat(TokenType.EQUAL); // Cambiar TokenType.SYMBOL a TokenType.EQUAL
+        this.eat(TokenType.EQUAL); 
         const expression = this.parseExpresion();
         return new Assignment(identifier, expression);
     }
@@ -343,12 +343,10 @@ class Parser {
     }
 }
 
-
-// Ejemplo de uso
 const code = `
 INICIO {
     int a = 5
-    int b = 10
+    int b = 4
     for (2) {
         a = a + b * 2
         for(3){
@@ -361,7 +359,7 @@ INICIO {
     vacio dfd (){
         for (4) {
             int a = 2
-            a  = v + 4 * 4 - (334*4
+            a  = v + 4 * 4 - (334*4)
         }
     }
 }FIN

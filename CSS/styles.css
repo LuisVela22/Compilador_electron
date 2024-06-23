@@ -4,33 +4,8 @@
     position: relative;
     font-family: monospace;
     width: 50%;
-  }
-  
-/*.line-numbers {
-    padding: 8px;
-    /*width: 7px;px;
-    background: #f7f7f7;
-    border-right: 1px solid #ccc;
-    margin: 34px;
-    text-align: right;
-    user-select: none;
-    font-size: 14px;
-    color: #888;
-    white-space: pre;
 }
   
-textarea {
-    flex-grow: 1;
-    padding: 10px;
-    font-style: oblique;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    margin: 34px ;
-    border-left: none;
-    border-radius: 10px 5px;
-    resize: vertical;
-    overflow: auto;
-}*/
 
 .line-numbers {
     padding: 10px;
@@ -111,15 +86,6 @@ body {
 }
 
 
-/*.my-container {
-    width: 100px;
-    overflow: 100%;
-}
-
-.my-container  div {
-    width: 50%;
-    float: left;
-}/*
 
 
 

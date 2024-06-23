@@ -8,10 +8,9 @@ function compilar() {
     output.innerHTML = ''; // Limpiar la salida anterior
 
     if (result.success) {
-        //output.innerHTML = `<pre>${JSON.stringify(result.ast, null, 2)}</pre>`;
         output.innerHTML = "COMPILACION EXITOSA!!!";
     } else {
-        output.innerHTML = `Errors:<br><pre>${result.errors.join('<br>')}</pre>`;
+        output.innerHTML = `Errores:<br><pre>${result.errors.join('<br>')}</pre>`;
     }
 }
 

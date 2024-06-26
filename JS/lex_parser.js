@@ -231,6 +231,7 @@ class Parser {
         this.tokens = tokens;
         this.currentTokenIndex = 0;
         this.errors = []; // Agregar arreglo para almacenar errores
+        this.variables = []; // nos servira para almacenar las variables que se declaren
     }
 
     getCurrentToken() {
@@ -291,6 +292,7 @@ class Parser {
     parseDeclaracion() {
         this.eat(TokenType.KEYWORD); // int
         const identifier = this.getCurrentToken().value;
+        this.variables.push(identifier);
         this.eat(TokenType.IDENTIFIER);
         this.eat(TokenType.EQUAL); 
         const expression = this.parseExpresion();
@@ -299,6 +301,9 @@ class Parser {
 
     parseAsignacion() {
         const identifier = this.getCurrentToken().value;
+        if(!this.variables.includes(identifier)){
+            this.errors.push(`Error inesperado: var no declarada en la linea ${this.getCurrentToken().line}`);
+        }
         this.eat(TokenType.IDENTIFIER);
         this.eat(TokenType.EQUAL); 
         const expression = this.parseExpresion();
@@ -355,6 +360,10 @@ class Parser {
             this.eat(TokenType.NUMBER);
             return new Num(parseInt(token.value));
         } else if (token.type === TokenType.IDENTIFIER) {
+            const identifier = this.getCurrentToken().value;
+            if(!this.variables.includes(identifier)){
+                this.errors.push(`Error inesperado: var no declarada en la linea ${this.getCurrentToken().line}`);
+            }
             this.eat(TokenType.IDENTIFIER);
             return new Var(token.value);
         } else if (token.type === TokenType.LEFT) {

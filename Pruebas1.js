@@ -360,6 +360,7 @@ INICIO {
         for (4) {
             int a = 2
             a  = v + 4 * 4 - (334*4)
+            vacio sfdsd(){}}
         }
     }
 }FIN
